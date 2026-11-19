@@ -34,7 +34,7 @@
 
     <!-- Background -->
     <!-- 기본 -->
-    <color name="theme_background_color">#FFF9FB</color>
+    <color name="theme_background_color">#FDF2EC</color>
     <!-- 채팅방 -->
     <color name="theme_chatroom_background_color">#FFF3F6</color>
     <!-- 잠금화면 -->
@@ -44,15 +44,15 @@
     <!-- Cell Color -->
 
     <!-- Header : 메인탭 헤더 타이틀 셀 -->
-    <color name="theme_header_cell_color">#FFF9FB</color>
+    <color name="theme_header_cell_color">#FDF2EC</color>
 
     <!-- Body : 기본리스트 & 콘텐츠영역 셀 -->
-    <color name="theme_body_cell_color">#00FFF9FB</color>
+    <color name="theme_body_cell_color">#00FDF2EC</color>
     <color name="theme_body_cell_pressed_color">#FBE3EA</color>
     <color name="theme_body_cell_border_color">#264A4044</color>
 
     <!-- Body Secondary : 발견 & 더보기 콘텐츠 영역 셀 -->
-    <color name="theme_body_secondary_cell_color">#FFF9FB</color>
+    <color name="theme_body_secondary_cell_color">#FDF2EC</color>
 
     <!-- Tab : 메인탭 탭바 -->
     <color name="theme_maintab_cell_color">#00FFFFFF</color>
