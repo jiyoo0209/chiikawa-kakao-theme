@@ -55,7 +55,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           BRANCH="${{ github.ref_name }}"
-          SAFE=$(echo "$BRANCH" | tr -c 'A-Za-z0-9._-' '-')
+          SAFE=$(printf '%s' "$BRANCH" | tr -c 'A-Za-z0-9._-' '-')
           if [ "$BRANCH" = "main" ]; then TAG="build-${{ github.run_number }}"; LATEST=true; else TAG="${SAFE}-${{ github.run_number }}"; LATEST=false; fi
           gh release create "$TAG" "${{ steps.apk.outputs.file }}" \
             --target "${{ github.sha }}" \
