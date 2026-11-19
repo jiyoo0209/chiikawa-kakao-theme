@@ -96,13 +96,11 @@ for tab in TABS:
     if off and on:
         off_im, off_scale = load(off), 0.9
     else:
-        # 한 장만 있으면: 평소 = 흑백 + 흐리게 + 살짝 작게, 선택 = 원래 색 + 크게
-        g = ImageOps.grayscale(on_im.convert("RGB")).convert("RGBA")
-        g.putalpha(on_im.getchannel("A").point(lambda v: int(v * 0.55)))
-        off_im, off_scale = g, 0.8
+        # 한 장만 있으면: 평소 = 컬러 그대로 작게, 선택 = 크게
+        off_im, off_scale = on_im, 0.78
     for folder, size in (("drawable-xxhdpi", 114), ("drawable-sw600dp", 152)):
         save(contain(off_im, size, off_scale), folder, f"theme_maintab_ico_{tab}_image.png")
-        save(contain(on_im, size, 0.96), folder, f"theme_maintab_ico_{tab}_focused_image.png")
+        save(contain(on_im, size, 1.0), folder, f"theme_maintab_ico_{tab}_focused_image.png")
     applied += [os.path.basename(x) for x in (off, on) if x]
 
 # 4) 잠금화면 비밀번호 동그라미 ------------------------------------------------
