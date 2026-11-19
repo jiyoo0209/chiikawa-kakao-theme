@@ -109,18 +109,23 @@ for n in range(1, 5):
 p = find("app_icon")
 if p:
     src = load(p)
+    ICON_BG = (255, 247, 220, 255)  # 투명한 부분을 채울 아이콘 배경색 (크림)
     for dens, s in (("mdpi", 48), ("hdpi", 72), ("xhdpi", 96), ("xxhdpi", 144), ("xxxhdpi", 192)):
-        sq = cover(src, s, s)
+        sq = Image.new("RGBA", (s, s), ICON_BG)
+        sq.alpha_composite(contain(src, s, 0.86))
         save(sq, f"mipmap-{dens}", "ic_launcher.png")
         mask = Image.new("L", (s * 4, s * 4), 0)
         ImageDraw.Draw(mask).ellipse((0, 0, s * 4 - 1, s * 4 - 1), fill=255)
+        rd = Image.new("RGBA", (s, s), ICON_BG)
+        rd.alpha_composite(contain(src, s, 0.76))
         rnd = Image.new("RGBA", (s, s), (0, 0, 0, 0))
-        rnd.paste(sq, (0, 0), mask.resize((s, s), Image.LANCZOS))
+        rnd.paste(rd, (0, 0), mask.resize((s, s), Image.LANCZOS))
         save(rnd, f"mipmap-{dens}", "ic_launcher_round.png")
-        a = int(s * 2.25)  # 적응형 아이콘: 사진을 전체 레이어로 사용
-        full = cover(src, a, a)
-        save(full, f"mipmap-{dens}", "ic_launcher_background.png")
-        save(Image.new("RGBA", (a, a), (0, 0, 0, 0)), f"mipmap-{dens}", "ic_launcher_foreground.png")
+        # 적응형 아이콘(안드로이드 8+): 레이어 108dp 중 가운데 약 66%만 보이므로
+        # 그림은 앞 레이어의 안전 영역 안에 넣고, 뒤 레이어는 단색으로 채움
+        a = int(s * 2.25)
+        save(Image.new("RGBA", (a, a), ICON_BG), f"mipmap-{dens}", "ic_launcher_background.png")
+        save(contain(src, a, 0.58), f"mipmap-{dens}", "ic_launcher_foreground.png")
     applied.append(os.path.basename(p))
 
 # 6) 테마 이름 ------------------------------------------------------------------
