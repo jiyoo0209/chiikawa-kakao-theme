@@ -133,7 +133,83 @@ if p:
         save(contain(src, a, 0.58), f"mipmap-{dens}", "ic_launcher_foreground.png")
     applied.append(os.path.basename(p))
 
-# 6) 테마 이름 ------------------------------------------------------------------
+# 6) 채팅 말풍선 (9-patch) ------------------------------------------------------
+#    둥근 말풍선 + 진한 테두리. 대화 묶음의 첫 말풍선(_01)에는
+#    images/bubble_you(.png) 캐릭터를 꼬리 자리(아래 모서리)에 붙임.
+#    bubble_me 가 없으면 bubble_you 를 좌우 반전해서 내 말풍선에 사용.
+BUBBLE_DIR = "drawable-xxhdpi"
+B_R = 54            # 모서리 둥글기 (px, xxhdpi)
+B_LW = 6            # 테두리 두께
+B_LINE = (60, 45, 35, 255)
+B_FILL = {"me": (255, 217, 106, 255), "you": (255, 255, 255, 255)}
+B_W, B_H = 2 * B_R + 24, 2 * B_R + 30   # 말풍선 본체 크기 (최소 크기)
+CH = 90             # 캐릭터 크기
+CH_OUT = 54         # 캐릭터가 말풍선 밖으로 나가는 폭
+CH_DROP = 12        # 캐릭터가 말풍선 아래로 내려오는 높이
+PAD_X, PAD_Y = 42, 30
+
+
+def bubble_body(fill):
+    S = 4
+    im = Image.new("RGBA", (B_W * S, B_H * S), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    h = B_LW * S / 2
+    d.rounded_rectangle((h, h, B_W * S - h - 1, B_H * S - h - 1), radius=B_R * S,
+                        fill=fill, outline=B_LINE, width=B_LW * S)
+    return im.resize((B_W, B_H), Image.LANCZOS)
+
+
+def ninepatch_you(fill, char):
+    """친구 말풍선(왼쪽) 9-patch. char 가 있으면 왼쪽 아래에 캐릭터 합성."""
+    ox = CH_OUT                      # 말풍선 본체 시작 x (왼쪽 캐릭터 자리 확보)
+    W, H = ox + B_W, B_H + CH_DROP
+    art = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    art.alpha_composite(bubble_body(fill), (ox, 0))
+    if char is not None:
+        c = contain(char, CH)
+        art.alpha_composite(c, (ox - CH_OUT + 0, H - CH))
+    out = Image.new("RGBA", (W + 2, H + 2), (0, 0, 0, 0))
+    out.alpha_composite(art, (1, 1))
+    px = out.load()
+    BLACK = (0, 0, 0, 255)
+    # 가로 늘어나는 구간: 본체 윗변 가운데
+    for x in range(ox + B_R + 2, ox + B_W - B_R - 2):
+        px[x + 1, 0] = BLACK
+    # 세로 늘어나는 구간: 캐릭터보다 위쪽
+    for y in range(B_R, min(B_H - B_R, H - CH) - 2):
+        px[0, y + 1] = BLACK
+    # 글자 영역(내용 패딩)
+    for x in range(ox + PAD_X, ox + B_W - PAD_X):
+        px[x + 1, H + 1] = BLACK
+    for y in range(PAD_Y, B_H - PAD_Y):
+        px[W + 1, y + 1] = BLACK
+    return out
+
+
+def mirror_ninepatch(im):
+    """좌우 반전하되, 왼쪽(늘림)/오른쪽(패딩) 표시 열은 제자리 유지"""
+    f = im.transpose(Image.FLIP_LEFT_RIGHT)
+    W = im.width
+    for y in range(im.height):
+        f.putpixel((0, y), im.getpixel((0, y)))
+        f.putpixel((W - 1, y), im.getpixel((W - 1, y)))
+    return f
+
+
+p_you, p_me = find("bubble_you"), find("bubble_me")
+ch_you = load(p_you) if p_you else None
+ch_me = load(p_me) if p_me else (ch_you.transpose(Image.FLIP_LEFT_RIGHT) if ch_you else None)
+for who in ("you", "me"):
+    char = ch_you if who == "you" else (ch_me.transpose(Image.FLIP_LEFT_RIGHT) if ch_me else None)
+    # 내 말풍선은 친구 말풍선을 만든 뒤 반전 → 캐릭터도 미리 한 번 뒤집어 둠
+    for n, c in (("01", char), ("02", None)):
+        np_ = ninepatch_you(B_FILL[who], c)
+        if who == "me":
+            np_ = mirror_ninepatch(np_)
+        np_.save(os.path.join(TH, BUBBLE_DIR, f"theme_chatroom_bubble_{who}_{n}_image.9.png"))
+applied += [os.path.basename(x) for x in (p_you, p_me) if x]
+
+# 7) 테마 이름 ------------------------------------------------------------------
 props = {}
 with open(os.path.join(ROOT, "theme.properties"), encoding="utf-8") as f:
     for line in f:
