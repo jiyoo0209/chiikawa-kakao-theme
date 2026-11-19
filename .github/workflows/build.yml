@@ -44,11 +44,16 @@ jobs:
           FILE="out/${NAME:-kakao-theme}.apk"
           cp build/outputs/apk/release/*-release.apk "$FILE"
           echo "file=$FILE" >> "$GITHUB_OUTPUT"
+          # iOS 용 테마(.ktheme, zip 형식)도 같이 만듦
+          python scripts/build_ios.py "out/${NAME:-kakao-theme}.ktheme"
+          echo "ios=out/${NAME:-kakao-theme}.ktheme" >> "$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@v4
         with:
           name: kakao-theme-${{ github.ref_name }}
-          path: out/*.apk
+          path: |
+            out/*.apk
+            out/*.ktheme
 
       - name: Releases 에 올리기
         env:
@@ -57,8 +62,8 @@ jobs:
           BRANCH="${{ github.ref_name }}"
           SAFE=$(printf '%s' "$BRANCH" | tr -c 'A-Za-z0-9._-' '-')
           if [ "$BRANCH" = "main" ]; then TAG="build-${{ github.run_number }}"; LATEST=true; else TAG="${SAFE}-${{ github.run_number }}"; LATEST=false; fi
-          gh release create "$TAG" "${{ steps.apk.outputs.file }}" \
+          gh release create "$TAG" "${{ steps.apk.outputs.file }}" "${{ steps.apk.outputs.ios }}" \
             --target "${{ github.sha }}" \
             --title "[$BRANCH] 테마 빌드 #${{ github.run_number }}" \
-            --notes "폰에서 아래 .apk 파일을 눌러 다운로드 → 설치 → 앱 열기 → [테마 적용하기]" \
+            --notes "안드로이드: .apk 다운로드 → 설치 → 앱 열기 → [테마 적용하기] / 아이폰: .ktheme 다운로드 → 카카오톡으로 열기" \
             --latest=$LATEST
