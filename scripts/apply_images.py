@@ -71,7 +71,12 @@ for key, targets in FULL.items():
         continue
     src = load(p)
     for folder, w, h in targets:
-        save(cover(src, w, h).convert("RGB"), folder, f"theme_{key}_image.png")
+        if key == "background":
+            # 카톡은 목록 배경을 화면 너비에 맞추고 하단(탭 바 위)에 붙여서 보여줌 → 비율 유지
+            img = src.resize((w, round(w * src.height / src.width)), Image.LANCZOS)
+        else:
+            img = cover(src, w, h)
+        save(img.convert("RGB"), folder, f"theme_{key}_image.png")
     applied.append(os.path.basename(p))
 
 # 2) 기본 프로필 ----------------------------------------------------------------
