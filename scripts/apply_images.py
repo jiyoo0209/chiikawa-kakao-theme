@@ -118,7 +118,7 @@ for n in range(1, 5):
 p = find("app_icon")
 if p:
     src = load(p)
-    ICON_BG = (255, 247, 220, 255)  # 투명한 부분을 채울 아이콘 배경색 (크림)
+    ICON_BG = (255, 244, 247, 255)  # 투명한 부분을 채울 아이콘 배경색 (연핑크)
     for dens, s in (("mdpi", 48), ("hdpi", 72), ("xhdpi", 96), ("xxhdpi", 144), ("xxxhdpi", 192)):
         sq = Image.new("RGBA", (s, s), ICON_BG)
         sq.alpha_composite(contain(src, s, 0.86))
@@ -144,8 +144,8 @@ if p:
 BUBBLE_DIR = "drawable-xxhdpi"
 B_R = 54            # 모서리 둥글기 (px, xxhdpi)
 B_LW = 6            # 테두리 두께
-B_LINE = {"me": (217, 169, 58, 255), "you": (217, 197, 154, 255)}  # 기존 테두리 색
-B_FILL = {"me": (255, 217, 106, 255), "you": (255, 255, 255, 255)}
+B_LINE = {"me": (242, 167, 184, 255), "you": (234, 216, 222, 255)}  # 핑크·연회색 테두리
+B_FILL = {"me": (255, 214, 223, 255), "you": (255, 255, 255, 255)}
 B_W, B_H = 2 * B_R + 24, 2 * B_R + 30   # 말풍선 본체 크기 (최소 크기)
 CH = 90             # 캐릭터 크기
 CH_OUT = 54         # 캐릭터가 말풍선 밖으로 나가는 폭
