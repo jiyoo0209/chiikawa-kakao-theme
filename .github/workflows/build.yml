@@ -2,7 +2,7 @@ name: 테마 APK 빌드
 
 on:
   push:
-    branches: [main]
+    branches: ["**"]
     paths-ignore: ["**.md"]
   workflow_dispatch:
 
@@ -39,22 +39,26 @@ jobs:
       - name: 파일 이름 정리
         id: apk
         run: |
-          ID=$(grep '^packageId=' theme.properties | cut -d= -f2 | tr -d '[:space:]')
+          NAME=$(grep '^apkName=' theme.properties | cut -d= -f2 | tr -d '[:space:]')
           mkdir -p out
-          FILE="out/usagi-kakao-theme.apk"
+          FILE="out/${NAME:-kakao-theme}.apk"
           cp build/outputs/apk/release/*-release.apk "$FILE"
           echo "file=$FILE" >> "$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: kakao-theme-apk
+          name: kakao-theme-${{ github.ref_name }}
           path: out/*.apk
 
       - name: Releases 에 올리기
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "build-${{ github.run_number }}" "${{ steps.apk.outputs.file }}" \
-            --title "테마 빌드 #${{ github.run_number }}" \
+          BRANCH="${{ github.ref_name }}"
+          SAFE=$(echo "$BRANCH" | tr -c 'A-Za-z0-9._-' '-')
+          if [ "$BRANCH" = "main" ]; then TAG="build-${{ github.run_number }}"; LATEST=true; else TAG="${SAFE}-${{ github.run_number }}"; LATEST=false; fi
+          gh release create "$TAG" "${{ steps.apk.outputs.file }}" \
+            --target "${{ github.sha }}" \
+            --title "[$BRANCH] 테마 빌드 #${{ github.run_number }}" \
             --notes "폰에서 아래 .apk 파일을 눌러 다운로드 → 설치 → 앱 열기 → [테마 적용하기]" \
-            --latest
+            --latest=$LATEST
