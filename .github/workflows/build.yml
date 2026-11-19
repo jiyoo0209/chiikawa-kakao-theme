@@ -41,7 +41,7 @@ jobs:
         run: |
           ID=$(grep '^packageId=' theme.properties | cut -d= -f2 | tr -d '[:space:]')
           mkdir -p out
-          FILE="out/${ID}-theme-${{ github.run_number }}.apk"
+          FILE="out/usagi-kakao-theme.apk"
           cp build/outputs/apk/release/*-release.apk "$FILE"
           echo "file=$FILE" >> "$GITHUB_OUTPUT"
 
