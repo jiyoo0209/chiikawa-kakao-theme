@@ -140,7 +140,7 @@ if p:
 BUBBLE_DIR = "drawable-xxhdpi"
 B_R = 54            # 모서리 둥글기 (px, xxhdpi)
 B_LW = 6            # 테두리 두께
-B_LINE = (60, 45, 35, 255)
+B_LINE = {"me": (217, 169, 58, 255), "you": (217, 197, 154, 255)}  # 기존 테두리 색
 B_FILL = {"me": (255, 217, 106, 255), "you": (255, 255, 255, 255)}
 B_W, B_H = 2 * B_R + 24, 2 * B_R + 30   # 말풍선 본체 크기 (최소 크기)
 CH = 90             # 캐릭터 크기
@@ -149,22 +149,22 @@ CH_DROP = 12        # 캐릭터가 말풍선 아래로 내려오는 높이
 PAD_X, PAD_Y = 42, 30
 
 
-def bubble_body(fill):
+def bubble_body(fill, line):
     S = 4
     im = Image.new("RGBA", (B_W * S, B_H * S), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     h = B_LW * S / 2
     d.rounded_rectangle((h, h, B_W * S - h - 1, B_H * S - h - 1), radius=B_R * S,
-                        fill=fill, outline=B_LINE, width=B_LW * S)
+                        fill=fill, outline=line, width=B_LW * S)
     return im.resize((B_W, B_H), Image.LANCZOS)
 
 
-def ninepatch_you(fill, char):
+def ninepatch_you(fill, line, char):
     """친구 말풍선(왼쪽) 9-patch. char 가 있으면 왼쪽 아래에 캐릭터 합성."""
     ox = CH_OUT                      # 말풍선 본체 시작 x (왼쪽 캐릭터 자리 확보)
     W, H = ox + B_W, B_H + CH_DROP
     art = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    art.alpha_composite(bubble_body(fill), (ox, 0))
+    art.alpha_composite(bubble_body(fill, line), (ox, 0))
     if char is not None:
         c = contain(char, CH)
         art.alpha_composite(c, (ox - CH_OUT + 0, H - CH))
@@ -203,7 +203,7 @@ for who in ("you", "me"):
     char = ch_you if who == "you" else (ch_me.transpose(Image.FLIP_LEFT_RIGHT) if ch_me else None)
     # 내 말풍선은 친구 말풍선을 만든 뒤 반전 → 캐릭터도 미리 한 번 뒤집어 둠
     for n, c in (("01", char), ("02", None)):
-        np_ = ninepatch_you(B_FILL[who], c)
+        np_ = ninepatch_you(B_FILL[who], B_LINE[who], c)
         if who == "me":
             np_ = mirror_ninepatch(np_)
         np_.save(os.path.join(TH, BUBBLE_DIR, f"theme_chatroom_bubble_{who}_{n}_image.9.png"))
