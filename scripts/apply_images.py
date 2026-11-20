@@ -71,7 +71,12 @@ for key, targets in FULL.items():
         continue
     src = load(p)
     for folder, w, h in targets:
-        if key == "background":
+        if key == "splash" and w > h:
+            # 가로 화면 첫 화면: 잘리지 않게 세로 그림을 가운데 두고 양옆은 가장자리 색으로 채움
+            img = Image.new("RGBA", (w, h), src.convert("RGB").getpixel((5, 5)) + (255,))
+            fit = ImageOps.contain(src, (w, h), Image.LANCZOS)
+            img.alpha_composite(fit, ((w - fit.width) // 2, (h - fit.height) // 2))
+        elif key == "background":
             # 카톡은 목록 배경을 화면 너비에 맞추고 하단(탭 바 위)에 붙여서 보여줌 → 비율 유지
             img = src.resize((w, round(w * src.height / src.width)), Image.LANCZOS)
         else:
