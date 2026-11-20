@@ -168,7 +168,7 @@ ManifestStyle
 
 TabBarStyle-Main
 {{
-    background-color: #FFFFFF;
+    background-color: {c('theme_background_color')};
     -ios-friends-normal-icon-image: 'maintabIcoFriends.png';
     -ios-friends-selected-icon-image: 'maintabIcoFriendsSelected.png';
     -ios-chats-normal-icon-image: 'maintabIcoChats.png';
