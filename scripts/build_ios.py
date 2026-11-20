@@ -349,7 +349,10 @@ BottomBannerStyle-Light {{
 os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True)
 with zipfile.ZipFile(OUT, "w", zipfile.ZIP_DEFLATED) as z:
     z.writestr("KakaoTalkTheme.css", css.encode("utf-8"))
-    z.writestr(zipfile.ZipInfo("Images/"), b"")
+    d = zipfile.ZipInfo("Images/", date_time=(2020, 1, 1, 0, 0, 0))
+    d.create_system = 0                       # MS-DOS 방식 + 폴더 표시 (아이폰 압축 해제가 파일로 오해하지 않게)
+    d.external_attr = (0o40755 << 16) | 0x10
+    z.writestr(d, b"")
     for path, im in sorted(files.items()):
         buf = io.BytesIO()
         im.save(buf, "PNG", optimize=True)
