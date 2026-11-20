@@ -110,6 +110,12 @@ for n in range(1, 5):
     if off:
         save(contain(load(off), 132), "drawable-xxhdpi", f"theme_passcode_0{n}_image.png")
         applied.append(os.path.basename(off))
+    elif on:
+        # 입력 전 사진이 따로 없으면 입력 후 사진을 흑백으로 만들어 사용
+        src = load(on).convert("RGBA")
+        gray = ImageOps.grayscale(src).convert("RGBA")
+        gray.putalpha(src.getchannel("A"))
+        save(contain(gray, 132), "drawable-xxhdpi", f"theme_passcode_0{n}_image.png")
     if on:
         save(contain(load(on), 132), "drawable-xxhdpi", f"theme_passcode_0{n}_checked_image.png")
         applied.append(os.path.basename(on))
