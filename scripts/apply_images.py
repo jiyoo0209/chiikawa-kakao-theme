@@ -76,7 +76,11 @@ for key, targets in FULL.items():
             img = src.resize((w, round(w * src.height / src.width)), Image.LANCZOS)
         else:
             img = cover(src, w, h)
-        save(img.convert("RGB"), folder, f"theme_{key}_image.png")
+        img = img.convert("RGB")
+        if key == "splash":
+            # 첫 화면은 6장이 들어가 용량이 커서 256색으로 압축 (눈으로는 거의 차이 없음)
+            img = img.quantize(256, method=Image.Quantize.MEDIANCUT)
+        save(img, folder, f"theme_{key}_image.png")
     applied.append(os.path.basename(p))
 
 # 2) 기본 프로필 ----------------------------------------------------------------
