@@ -156,7 +156,7 @@ css = f"""/*
 ManifestStyle
 {{
     -kakaotalk-theme-name: '{name}';
-    -kakaotalk-theme-version: '1.0.0';
+    -kakaotalk-theme-version: '26.1.0';
     -kakaotalk-theme-url: 'http://www.kakao.com';
     -kakaotalk-author-name: 'me';
     -kakaotalk-theme-id: 'com.kakao.talk.theme.{pkg}ios';
