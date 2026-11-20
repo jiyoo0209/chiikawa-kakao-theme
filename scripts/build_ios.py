@@ -96,7 +96,7 @@ ImageDraw.Draw(kp).ellipse((20, 20, 700, 700), fill=hexrgb(c("theme_passcode_key
 put("passcodeKeypadPressed", kp.resize((180, 180), Image.LANCZOS), also_2x=False)
 
 put("findBtnAddFriend", load(os.path.join(D3, "theme_find_add_friend_button_image.png")).resize((126, 102), Image.LANCZOS))
-files["commonIcoTheme.png"] = load(os.path.join(RES, "mipmap-xxxhdpi", "ic_launcher.png")).resize((162, 162), Image.LANCZOS)
+files["Images/commonIcoTheme.png"] = load(os.path.join(RES, "mipmap-xxxhdpi", "ic_launcher.png")).resize((162, 162), Image.LANCZOS)
 
 
 # 말풍선: 안드로이드 9-patch → iOS 늘림 이미지 + 캡/여백(pt) 계산
