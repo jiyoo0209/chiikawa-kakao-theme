@@ -61,12 +61,16 @@ def hexrgb(h):
     return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
 
 
-# 목록 배경: 안드로이드처럼 너비 맞춤 + 아래 정렬, 남는 위쪽은 배경색
+# 목록 배경: 아이폰은 배경을 화면 전체(탭바 뒤까지)에 꽉 채워 그림.
+# 그래서 아이폰 화면 비율로 만들고, 그림은 탭바(+홈 바) 높이만큼 위로 올려 아래 정렬.
+# 탭바 뒤 영역은 그림 맨 아래 줄 색으로 이어 채움, 남는 위쪽은 배경색.
 src = load(os.path.join(D3, "theme_background_image.png"))
-W, H = 1125, 2250
+W, H, TAB = 1179, 2556, 222
 im = src.resize((W, round(src.height * W / src.width)), Image.LANCZOS)
 bg = Image.new("RGBA", (W, H), hexrgb(c("theme_background_color")) + (255,))
-bg.alpha_composite(im.crop((0, max(0, im.height - H), W, im.height)), (0, max(0, H - im.height)))
+top = H - TAB
+bg.alpha_composite(im.crop((0, max(0, im.height - top), W, im.height)), (0, max(0, top - im.height)))
+bg.alpha_composite(im.crop((0, im.height - 1, W, im.height)).resize((W, TAB)), (0, top))
 put("mainBgImage", bg.convert("RGB"), also_2x=False)
 
 put("chatroomBgImage", ImageOps.fit(load(os.path.join(D3, "theme_chatroom_background_image.png")), (1125, 2250), Image.LANCZOS).convert("RGB"), also_2x=False)
