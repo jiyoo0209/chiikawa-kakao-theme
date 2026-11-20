@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 크림 옐로 기본 팔레트 — 색만 바꾸고 싶으면 이 파일의 #코드를 수정하세요 -->
+    <!-- 하치와레 팔레트 (하늘·화이트) — 색만 바꾸고 싶으면 이 파일의 #코드를 수정하세요 -->
 
     <!-- Header : 메인탭 헤더 타이틀 -->
-    <color name="theme_header_color">#5B4630</color>                            <!--Default-->
+    <color name="theme_header_color">#2F4A5E</color>                            <!--Default-->
 
     <!-- Section Title : 섹션 헤더 타이틀 -->
-    <color name="theme_section_title_color">#E8A33B</color>                     <!--Default-->
+    <color name="theme_section_title_color">#4FA3DA</color>                     <!--Default-->
 
     <!-- Title : 이름 -->
-    <color name="theme_title_color">#5B4630</color>                             <!--Default-->
-    <color name="theme_title_pressed_color">#B89A6E</color>                     <!--Pressed-->
+    <color name="theme_title_color">#2F4A5E</color>                             <!--Default-->
+    <color name="theme_title_pressed_color">#A9BDCB</color>                     <!--Pressed-->
 
     <!-- Paragraph : 라스트메세지 -->
-    <color name="theme_paragraph_color">#8A7356</color>                         <!--Default-->
-    <color name="theme_paragraph_pressed_color">#B89A6E</color>                 <!--Pressed-->
+    <color name="theme_paragraph_color">#6E8394</color>                         <!--Default-->
+    <color name="theme_paragraph_pressed_color">#A9BDCB</color>                 <!--Pressed-->
 
     <!-- Description : 상태메세지 -->
-    <color name="theme_description_color">#8A7356</color>                       <!--Default-->
-    <color name="theme_description_pressed_color">#B89A6E</color>               <!--Pressed-->
+    <color name="theme_description_color">#6E8394</color>                       <!--Default-->
+    <color name="theme_description_pressed_color">#A9BDCB</color>               <!--Pressed-->
 
     <!-- Feature : 서비스/피처별 컬러 -->
 
     <!-- Primary : 멜론/선물하기 등 버튼 텍스트 -->
-    <color name="theme_feature_primary_color">#8A7356</color>                   <!--Default-->
-    <color name="theme_feature_primary_pressed_color">#B89A6E</color>           <!--Pressed-->
+    <color name="theme_feature_primary_color">#6E8394</color>                   <!--Default-->
+    <color name="theme_feature_primary_pressed_color">#A9BDCB</color>           <!--Pressed-->
 
     <!-- Services : Browse 3탭 -->
-    <color name="theme_feature_browse_tab_color">#D9C59A</color>                <!--Default-->
-    <color name="theme_feature_browse_tab_focused_color">#5B4630</color>        <!--Focused-->
+    <color name="theme_feature_browse_tab_color">#BFD6E6</color>                <!--Default-->
+    <color name="theme_feature_browse_tab_focused_color">#2F4A5E</color>        <!--Focused-->
 
 
     <!-- Background -->
     <!-- 기본 -->
-    <color name="theme_background_color">#FFFBDE</color>
+    <color name="theme_background_color">#DEF1FF</color>
     <!-- 채팅방 -->
-    <color name="theme_chatroom_background_color">#FFF3CC</color>
+    <color name="theme_chatroom_background_color">#E9F8FD</color>
     <!-- 잠금화면 -->
-    <color name="theme_passcode_background_color">#FFE7A3</color>
+    <color name="theme_passcode_background_color">#CDEBFB</color>
 
 
     <!-- Cell Color -->
 
     <!-- Header : 메인탭 헤더 타이틀 셀 -->
-    <color name="theme_header_cell_color">#FFFBDE</color>
+    <color name="theme_header_cell_color">#DEF1FF</color>
 
     <!-- Body : 기본리스트 & 콘텐츠영역 셀 -->
-    <color name="theme_body_cell_color">#00FFFBDE</color>
-    <color name="theme_body_cell_pressed_color">#FBE7B0</color>
-    <color name="theme_body_cell_border_color">#265B4630</color>
+    <color name="theme_body_cell_color">#00DEF1FF</color>
+    <color name="theme_body_cell_pressed_color">#CCE6F7</color>
+    <color name="theme_body_cell_border_color">#262F4A5E</color>
 
     <!-- Body Secondary : 발견 & 더보기 콘텐츠 영역 셀 -->
-    <color name="theme_body_secondary_cell_color">#FFFBDE</color>
+    <color name="theme_body_secondary_cell_color">#DEF1FF</color>
 
     <!-- Tab : 메인탭 탭바 -->
     <color name="theme_maintab_cell_color">#00FFFFFF</color>
-    <color name="theme_tab_lightbannerbadge_background_color">#5B4630</color>
+    <color name="theme_tab_lightbannerbadge_background_color">#2F4A5E</color>
 
     <!-- Tab : 배너 -->
-    <color name="theme_tab_bannerbadge_background_color">#5B4630</color>
+    <color name="theme_tab_bannerbadge_background_color">#2F4A5E</color>
 
 
     <!-- Elements Color -->
 
     <!-- Direct Share BG -->
-    <color name="theme_direct_share_color">#5B4630</color>
-    <color name="theme_direct_share_button_color">#F2B33D</color>
-    <color name="theme_direct_share_background_color">#FFFBEE</color>
+    <color name="theme_direct_share_color">#2F4A5E</color>
+    <color name="theme_direct_share_button_color">#6FBDF0</color>
+    <color name="theme_direct_share_background_color">#F5FBFF</color>
 
     <!-- Notification Popup/Toast -->
-    <color name="theme_notification_color">#5B4630</color>
-    <color name="theme_notification_background_color">#FFEFC2</color>
-    <color name="theme_notification_background_pressed_color">#FBE0A0</color>
+    <color name="theme_notification_color">#2F4A5E</color>
+    <color name="theme_notification_background_color">#E4F3FC</color>
+    <color name="theme_notification_background_pressed_color">#CFE6F5</color>
 
     <!-- Passcode -->
-    <color name="theme_passcode_color">#5B4630</color>
+    <color name="theme_passcode_color">#2F4A5E</color>
 
-    <color name="theme_passcode_keypad_color">#5B4630</color>
-    <color name="theme_passcode_keypad_pressed_color">#C9B791</color>
-    <color name="theme_passcode_keypad_background_color">#FFFBEE</color>
-    <color name="theme_passcode_keypad_pressed_background_color">#99FFE7A3</color>
+    <color name="theme_passcode_keypad_color">#2F4A5E</color>
+    <color name="theme_passcode_keypad_pressed_color">#A9C9DE</color>
+    <color name="theme_passcode_keypad_background_color">#F5FBFF</color>
+    <color name="theme_passcode_keypad_pressed_background_color">#99CDEBFB</color>
 
-    <color name="theme_passcode_pattern_line_color">#F2B33D</color>
+    <color name="theme_passcode_pattern_line_color">#6FBDF0</color>
 
 
     <!-- Chatroom -->
@@ -90,20 +90,20 @@
     <!-- Chat Bubble -->
 
     <!-- Me -->
-    <color name="theme_chatroom_bubble_me_color">#4A3A20</color>
+    <color name="theme_chatroom_bubble_me_color">#24384A</color>
 
     <!-- You -->
-    <color name="theme_chatroom_bubble_you_color">#4A3A20</color>
+    <color name="theme_chatroom_bubble_you_color">#24384A</color>
 
     <!-- Chat Unread Count -->
-    <color name="theme_chatroom_unread_count_color">#F0A030</color>
+    <color name="theme_chatroom_unread_count_color">#3B9BE0</color>
 
     <!-- Input Bar -->
     <color name="theme_chatroom_input_bar_color">#191919</color>
     <color name="theme_chatroom_input_bar_background_color">#FFFFFF</color>
-    <color name="theme_chatroom_input_bar_menu_icon_color">#E8A33B</color>
+    <color name="theme_chatroom_input_bar_menu_icon_color">#4FA3DA</color>
     <color name="theme_chatroom_input_bar_menu_button_color">#0A000000</color>
-    <color name="theme_chatroom_input_bar_send_icon_color">#5B4630</color>
-    <color name="theme_chatroom_input_bar_send_button_color">#FFD96A</color>
+    <color name="theme_chatroom_input_bar_send_icon_color">#2F4A5E</color>
+    <color name="theme_chatroom_input_bar_send_button_color">#8CCBF5</color>
 
 </resources>
